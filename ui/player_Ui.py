@@ -114,10 +114,8 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
         self.actionOpen = QtGui.QAction(MainWindow)
         self.actionOpen.setObjectName(_fromUtf8("actionOpen"))
-        self.actionRecent = QtGui.QAction(MainWindow)
-        self.actionRecent.setObjectName(_fromUtf8("actionRecent"))
         self.menuFile.addAction(self.actionOpen)
-        self.menuFile.addAction(self.actionRecent)
+        self.actionRecent = self.menuFile.addMenu("Recent")
         self.menubar.addAction(self.menuFile.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -127,6 +125,6 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "SPlayer", None))
         self.menuFile.setTitle(_translate("MainWindow", "File", None))
         self.actionOpen.setText(_translate("MainWindow", "Open", None))
-        self.actionRecent.setText(_translate("MainWindow", "Recent", None))
+        # self.actionRecent.setText(_translate("MainWindow", "Recent", None))
 
 from PySide import phonon
