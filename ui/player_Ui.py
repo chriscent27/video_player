@@ -115,7 +115,7 @@ class Ui_MainWindow(object):
         self.actionOpen = QtGui.QAction(MainWindow)
         self.actionOpen.setObjectName(_fromUtf8("actionOpen"))
         self.menuFile.addAction(self.actionOpen)
-        self.actionRecent = self.menuFile.addMenu("Recent")
+        self.menuRecent = self.menuFile.addMenu("Recent")
         self.menubar.addAction(self.menuFile.menuAction())
 
         self.retranslateUi(MainWindow)
