@@ -58,12 +58,22 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
+        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem)
+        self.open_file_button = QtGui.QPushButton(self.centralwidget)
+        self.open_file_button.setText(_fromUtf8(""))
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(_fromUtf8("ui/icons/open_file.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.open_file_button.setIcon(icon3)
+        self.open_file_button.setIconSize(QtCore.QSize(20, 19))
+        self.open_file_button.setObjectName(_fromUtf8("open_file_button"))
+        self.horizontalLayout.addWidget(self.open_file_button)
         self.play_push_button = QtGui.QPushButton(self.centralwidget)
         self.play_push_button.setText(_fromUtf8(""))
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap(_fromUtf8("ui/icons/play_icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.play_push_button.setIcon(icon1)
-        self.play_push_button.setIconSize(QtCore.QSize(20, 19))
+        # self.play_push_button.setIconSize(QtCore.QSize(20, 19))
         self.play_push_button.setObjectName(_fromUtf8("play_push_button"))
         self.horizontalLayout.addWidget(self.play_push_button)
         self.stop_push_button = QtGui.QPushButton(self.centralwidget)
@@ -72,8 +82,11 @@ class Ui_MainWindow(object):
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap(_fromUtf8("ui/icons/stop_icon .png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.stop_push_button.setIcon(icon2)
+        self.stop_push_button.setIconSize(QtCore.QSize(20, 19))
         self.stop_push_button.setObjectName(_fromUtf8("stop_push_button"))
         self.horizontalLayout.addWidget(self.stop_push_button)
+        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem)
         spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem1)
         self.volumeSlider = phonon.Phonon.VolumeSlider(self.centralwidget)
@@ -92,14 +105,15 @@ class Ui_MainWindow(object):
 "border-radius:10px;\n"
 "max-width:30px;\n"
 "max-height:30px;\n"
-"min-width:30px;\n"
-"min-height:30px;\n"
+"min-width:25px;\n"
+"min-height:25px;\n"
 "}"))
         self.fullscreen_push_button.setText(_fromUtf8(""))
         icon3 = QtGui.QIcon()
         icon3.addPixmap(QtGui.QPixmap(_fromUtf8("ui/icons/full_screen_icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.fullscreen_push_button.setIcon(icon3)
         self.fullscreen_push_button.setObjectName(_fromUtf8("fullscreen_push_button"))
+        self.fullscreen_push_button.setIconSize(QtCore.QSize(20, 19))
         self.horizontalLayout.addWidget(self.fullscreen_push_button)
         self.verticalLayout.addLayout(self.horizontalLayout)
         MainWindow.setCentralWidget(self.centralwidget)
