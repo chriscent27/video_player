@@ -19,6 +19,7 @@ class PlayerData(object):
         self.phonon_media_obj = None
         self.qactions = {}
         self.recent_files = {}
+        self.seek_duration = 10000
         self.settings = QtCore.QSettings()
         self.play_pause_icons = {
             'play': None,
@@ -93,6 +94,9 @@ class PlayerData(object):
         """
         self.settings.setValue("last played", file_path)
 
+    def get_current_time(self):
+        return self.phonon_media_obj.currentTime()
+
     def get_last_selected_directory(self):
         """ Gets the directory path of the last selected video.
         """
@@ -123,7 +127,7 @@ class PlayerData(object):
 
         """
         if self.phonon_media_obj:
-            current_play_time = self.phonon_media_obj.currentTime()
+            current_play_time = self.get_current_time()
             file_path = self.phonon_media_obj.currentSource().fileName()
             self.recent_files[file_path] = current_play_time
             self.save_last_played_file_path(file_path)
@@ -169,15 +173,25 @@ class VideoPlayer(player_Ui.Ui_MainWindow, QtGui.QMainWindow):
     def create_shortcuts(self):
         """ All the player shortcuts are defined here.
         """
-        self.shortcutFullscreen = QtGui.QShortcut(self)
-        self.shortcutFullscreen.setKey(QtGui.QKeySequence('F11'))
-        self.shortcutFullscreen.setContext(QtCore.Qt.ApplicationShortcut)
-        self.shortcutFullscreen.activated.connect(self.toggle_fullscreen)
+        self.shortcut_fullscreen = QtGui.QShortcut(self)
+        self.shortcut_fullscreen.setKey(QtGui.QKeySequence('F11'))
+        self.shortcut_fullscreen.setContext(QtCore.Qt.ApplicationShortcut)
+        self.shortcut_fullscreen.activated.connect(self.toggle_fullscreen)
 
-        self.shortcutPlayPause = QtGui.QShortcut(self)
-        self.shortcutPlayPause.setKey(QtGui.QKeySequence('SPACE'))
-        self.shortcutPlayPause.setContext(QtCore.Qt.ApplicationShortcut)
-        self.shortcutPlayPause.activated.connect(self.play_pause_video)
+        self.shortcut_play_pause = QtGui.QShortcut(self)
+        self.shortcut_play_pause.setKey(QtGui.QKeySequence('SPACE'))
+        self.shortcut_play_pause.setContext(QtCore.Qt.ApplicationShortcut)
+        self.shortcut_play_pause.activated.connect(self.play_pause_video)
+
+        self.shortcut_seek_right = QtGui.QShortcut(self)
+        self.shortcut_seek_right.setKey(QtGui.QKeySequence('Right'))
+        self.shortcut_seek_right.setContext(QtCore.Qt.ApplicationShortcut)
+        self.shortcut_seek_right.activated.connect(self.seek_right)
+
+        self.shortcut_seek_left = QtGui.QShortcut(self)
+        self.shortcut_seek_left.setKey(QtGui.QKeySequence('Left'))
+        self.shortcut_seek_left.setContext(QtCore.Qt.ApplicationShortcut)
+        self.shortcut_seek_left.activated.connect(self.seek_left)
 
     def connect_signals_and_slots(self):
         """ The signals and slots connections, and tooltips are defined here.
@@ -243,6 +257,7 @@ class VideoPlayer(player_Ui.Ui_MainWindow, QtGui.QMainWindow):
         """
         if self.data.file_path:
             self.data.update_current_playtime()
+
         self.data.seekOn = True
         self.data.set_source(file_path)
         self.data.file_path = file_path
@@ -274,6 +289,16 @@ class VideoPlayer(player_Ui.Ui_MainWindow, QtGui.QMainWindow):
         else:
             self.videoPlayer.play()
             self.play_push_button.setIcon(self.data.play_pause_icons['pause'])
+
+    def seek_right(self):
+        current_time = self.data.get_current_time()
+        new_time = current_time + self.data.seek_duration
+        self.videoPlayer.seek(new_time)
+
+    def seek_left(self):
+        current_time = self.data.get_current_time()
+        new_time = current_time - self.data.seek_duration
+        self.videoPlayer.seek(new_time)
 
     def closeEvent(self, event):
         """ This event is called when the player is closed.
